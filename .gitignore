@@ -22,3 +22,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# mac os
+(DS|ds).(store|STORE)
