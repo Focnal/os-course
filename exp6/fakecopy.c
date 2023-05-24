@@ -1,26 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MAX_COMMAND_LEN 4096
+void mycopy(int argc, const char **argv);
 int main(int argc, char const *argv[])
 {
-    if (argc == 3)
-    {
+    mycopy(argc, argv);
+    return 0;
+}
 
-        char cmd[4096];
-        memset(cmd, '\0', sizeof(cmd));
-        snprintf(cmd, 4095, "cp %s %s\n", argv[1], argv[2]);
-        system(cmd);
-        return 0;
-    }
-    if (argc == 4)
+void mycopy(int argc, const char **argv)
+{
+    char *command = (char *)malloc(sizeof(char) * MAX_COMMAND_LEN);
+    memset(command, '\0', MAX_COMMAND_LEN);
+    strcpy(command, "cp");
+    for (int i = 1; i < argc; i++)
     {
-        char cmd[4096];
-        memset(cmd, '\0', sizeof(cmd));
-        snprintf(cmd, 4095, "cp %s %s %s\n", argv[1], argv[2], argv[3]);
-        system(cmd);
-        return 0;
+        int index = 0;
+        strcat(command, " ");
+        strcat(command, argv[i]);
     }
-
-    system("cp --help");
-    return 1;
+    system(command);
+    free(command);
 }
